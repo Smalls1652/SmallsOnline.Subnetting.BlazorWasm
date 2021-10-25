@@ -1,0 +1,98 @@
+﻿@page "/"
+@using SmallsOnline.Subnetting.Lib.Models;
+
+<PageTitle>Blazor WebAssembly Subnet Calculator</PageTitle>
+
+<div>
+    <label>
+        Network address:
+        <input @bind="inputSubnetString" />
+    </label>
+    <button onclick="@CalculateBtnClick">
+        Calculate
+    </button>
+</div>
+
+<div class="pt-2">
+    @if (calculatedSubnet == null)
+    {
+        <p>
+            No network address has been provided yet. :(
+        </p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            Input
+                        </th>
+                        <td class="font-monospace">
+                            @inputSubnetString
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Network Address
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.NetworkAddress
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Subnet Mask
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.SubnetMask
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Broadcast Address
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.BroadcastAddress
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Total Addresses
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.TotalAddresses
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Total Usable Addresses
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.UsableAddresses
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Usable Host Range
+                        </th>
+                        <td class="font-monospace">
+                            @calculatedSubnet.UsableHostRange.FirstUsableHostAddress - @calculatedSubnet.UsableHostRange.LastUsableHostAddress
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@code {
+    private string? inputSubnetString;
+    private IPv4Subnet? calculatedSubnet;
+
+    private void CalculateBtnClick()
+    {
+        calculatedSubnet = new(inputSubnetString);
+    }
+}
