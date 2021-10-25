@@ -37,7 +37,7 @@ jobs:
       - name: Run dotnet publish
         run: dotnet publish src/SmallsOnline.Subnetting.BlazorWasm/ --configuration Release --output build/
       
-      - name: Build And Deploy
+      - name: Deploy to Azure
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
